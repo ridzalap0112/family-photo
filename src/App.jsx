@@ -283,27 +283,53 @@ export default function App() {
       )}
 
       {role === "admin" && (
-        <div>
+        <div className="space-y-10">
           {["6A", "6B"].map((cls) => (
-            <div key={cls}>
-              <div className="flex justify-between">
-                <h2>{cls}</h2>
-                <button onClick={() => downloadAllByClass(cls)}>
+            <div key={cls} className="bg-white rounded-2xl shadow-md p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold">Class {cls}</h2>
+                <button
+                  onClick={() => downloadAllByClass(cls)}
+                  className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm"
+                >
                   Download All
                 </button>
               </div>
 
-              {photos
-                .filter((p) => p.kelas === cls)
-                .map((p) => (
-                  <div key={p.id} className="flex gap-2 mt-2">
-                    <img src={p.url} className="w-20" />
-                    <button onClick={() => downloadDirect(p.url, p.name)}>
-                      Download
-                    </button>
-                    <button onClick={() => deletePhoto(p)}>Delete</button>
-                  </div>
-                ))}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {photos
+                  .filter((p) => p.kelas === cls)
+                  .map((p) => (
+                    <div
+                      key={p.id}
+                      className="bg-gray-50 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition"
+                    >
+                      <img src={p.url} className="w-full h-40 object-cover" />
+
+                      <div className="p-3 space-y-2">
+                        <p className="text-xs text-gray-600 truncate">
+                          {p.name || "No name"}
+                        </p>
+
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => downloadDirect(p.url, p.name)}
+                            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-xs py-1 rounded-lg"
+                          >
+                            Download
+                          </button>
+
+                          <button
+                            onClick={() => deletePhoto(p)}
+                            className="flex-1 bg-red-500 hover:bg-red-600 text-white text-xs py-1 rounded-lg"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
           ))}
         </div>
