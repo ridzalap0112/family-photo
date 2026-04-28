@@ -1,0 +1,88 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyCJhVIkSeE4MZFD-u10-7rBdGeRs7qv24M",
+  authDomain: "family-photo-dfb24.firebaseapp.com",
+  projectId: "family-photo-dfb24",
+  storageBucket: "family-photo-dfb24.firebasestorage.app",
+  messagingSenderId: "48478776888",
+  appId: "1:48478776888:web:3e5446adac1914d54a80cd",
+};
+
+const CLOUD_NAME = "dswnss8op";
+const UPLOAD_PRESET = "family-photo";
+
+Framework preset: Vite
+Build command: npm run build
+Build output directory: dist
+
+
+
+📘 Panduan Penggunaan Website FotoKita
+1. Sebagai Pengguna (Siswa)
+A. Login
+Buka website FotoKita melalui browser.
+Masukkan password sesuai kelas:
+6A untuk kelas 6A
+6B untuk kelas 6B
+Klik tombol Enter.
+B. Upload Foto
+Setelah masuk, akan muncul halaman upload.
+Klik tombol Choose File.
+Pilih maksimal 3 foto dari perangkat.
+Preview foto akan muncul di layar.
+Klik tombol Upload untuk mengirim foto.
+
+Catatan:
+
+Setiap pengguna hanya dapat mengunggah maksimal 3 foto.
+Pastikan foto yang diupload sesuai dengan kebutuhan kelas.
+C. Melihat dan Menghapus Foto
+Foto yang sudah diupload akan tampil di bawah.
+Untuk menghapus foto:
+Klik ikon ✕ (hapus) pada foto.
+Foto akan langsung terhapus dari sistem.
+D. Logout
+Klik tombol Logout di kanan atas untuk keluar dari akun.
+2. Sebagai Admin
+A. Login
+
+Masukkan password admin:
+
+admin1290
+Klik Enter.
+B. Melihat Data Foto
+Admin dapat melihat semua foto dari:
+Class 6A
+Class 6B
+Setiap foto menampilkan:
+Nama file
+ID pengunggah (device)
+C. Download Foto
+1. Download per Foto
+Klik tombol Download pada masing-masing foto.
+File akan terunduh ke perangkat.
+2. Download Semua Foto (ZIP)
+Klik tombol Download All pada bagian kelas.
+Sistem akan:
+Menggabungkan semua foto dalam kelas tersebut
+Mengunduh dalam format .zip
+D. Menghapus Foto
+Klik tombol Delete pada foto.
+Foto akan langsung terhapus dari database.
+E. Logout
+Klik tombol Logout untuk keluar dari dashboard admin.
+3. Catatan Penting
+Data login disimpan sementara di browser (local storage).
+Jika browser di-refresh:
+Sistem tetap menyimpan status login (selama belum logout).
+Pastikan koneksi internet stabil saat upload atau download.
+Admin memiliki akses penuh terhadap seluruh data.
+4. Alur Sistem Singkat
+Siswa login → upload foto
+Foto tersimpan di Cloudinary + database
+Admin melihat → download / hapus
+Data selalu ter-update secara otomatis
+
+Kalau kamu mau, saya bisa lanjutkan:
+
+versi PDF siap dibagikan ke guru/siswa
+atau dibuatkan halaman “Help / Panduan” langsung di website kamu

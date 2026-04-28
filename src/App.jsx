@@ -209,7 +209,16 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-200 to-white">
         <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-xl w-[360px] text-center">
-          <img src={logoLogin} className="w-20 mx-auto mb-4" />
+          <img src={logoLogin} className="w-20 mx-auto mb-2" />
+          <h1 className="text-lg font-semibold text-gray-700 mb-1">
+            Grade 6 Family Photo
+          </h1>
+          <p className="text-xs text-gray-500 mb-1">
+            Upload & manage class memories
+          </p>
+          <p className="text-[10px] text-gray-400 tracking-wide uppercase">
+            SD Nasional Plus BPK PENABUR Sentul City – Bogor
+          </p>
           <input
             type="password"
             className="w-full p-3 border rounded-xl mb-4"
@@ -231,9 +240,14 @@ export default function App() {
   return (
     <div className="p-6">
       <div className="flex justify-between mb-6">
-        <div className="flex gap-2 items-center">
-          <img src={logoWeb} className="w-8" />
-          <h1 className="font-bold">FotoKita</h1>
+        <div className="flex flex-col">
+          <div className="flex gap-2 items-center">
+            <img src={logoWeb} className="w-8" />
+            <h1 className="font-bold">FotoKita</h1>
+          </div>
+          <p className="text-[11px] text-gray-500 ml-10">
+            SD Nasional Plus BPK PENABUR Sentul City – Bogor
+          </p>
         </div>
         <button onClick={logout}>Logout</button>
       </div>
