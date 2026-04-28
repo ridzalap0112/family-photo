@@ -22,7 +22,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCJhVIkSeE4MZFD-u10-7rBdGeRs7qv24M",
   authDomain: "family-photo-dfb24.firebaseapp.com",
   projectId: "family-photo-dfb24",
-  storageBucket: "family-photo-dfb24.firebasestorage.app",
+  storageBucket: "family-photo-dfb24.appspot.com",
   messagingSenderId: "48478776888",
   appId: "1:48478776888:web:3e5446adac1914d54a80cd",
 };
