@@ -3,6 +3,8 @@
 // ==================================
 
 import { useEffect, useState } from "react";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 import logoWeb from "./assets/logo-web.png";
 import logoLogin from "./assets/logo.png";
 import { initializeApp } from "firebase/app";
@@ -22,7 +24,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCJhVIkSeE4MZFD-u10-7rBdGeRs7qv24M",
   authDomain: "family-photo-dfb24.firebaseapp.com",
   projectId: "family-photo-dfb24",
-  storageBucket: "family-photo-dfb24.appspot.com",
+  storageBucket: "family-photo-dfb24.firebasestorage.app",
   messagingSenderId: "48478776888",
   appId: "1:48478776888:web:3e5446adac1914d54a80cd",
 };
@@ -60,8 +62,11 @@ export default function App() {
     if (STUDENT_PASSWORDS.includes(pass)) {
       setRole("siswa");
       setKelas(pass);
+      localStorage.setItem("role", "siswa");
+      localStorage.setItem("kelas", pass);
     } else if (password === ADMIN_PASSWORD) {
       setRole("admin");
+      localStorage.setItem("role", "admin");
     } else {
       alert("Wrong password");
     }
@@ -71,6 +76,8 @@ export default function App() {
     setRole(null);
     setPassword("");
     setKelas(null);
+    localStorage.removeItem("role");
+    localStorage.removeItem("kelas");
   }
 
   async function fetchPhotos() {
@@ -93,7 +100,17 @@ export default function App() {
   }
 
   useEffect(() => {
-    fetchPhotos();
+    const savedRole = localStorage.getItem("role");
+    const savedKelas = localStorage.getItem("kelas");
+
+    if (savedRole) {
+      setRole(savedRole);
+      if (savedRole === "siswa") setKelas(savedKelas);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (role) fetchPhotos();
   }, [role]);
 
   function handlePreview(files) {
@@ -138,6 +155,20 @@ export default function App() {
     fetchPhotos();
   }
 
+  async function downloadAllByClass(cls) {
+    const zip = new JSZip();
+    const classPhotos = photos.filter((p) => p.kelas === cls);
+
+    for (const p of classPhotos) {
+      const res = await fetch(p.url);
+      const blob = await res.blob();
+      zip.file(p.name || `photo-${p.id}.jpg`, blob);
+    }
+
+    const content = await zip.generateAsync({ type: "blob" });
+    saveAs(content, `Class-${cls}-Photos.zip`);
+  }
+
   // ================= LOGIN =================
   if (!role) {
     return (
@@ -151,7 +182,7 @@ export default function App() {
           />
 
           <h2 className="text-2xl font-semibold text-gray-700 mb-6">
-            Family Photo
+            FotoKita
           </h2>
 
           <input
@@ -183,7 +214,7 @@ export default function App() {
             alt="Logo"
             className="w-10 h-10 object-contain hover:rotate-3 transition duration-300"
           />
-          <h1 className="text-2xl font-bold text-gray-700">Family Photo</h1>
+          <h1 className="text-2xl font-bold text-gray-700">FotoKita</h1>
         </div>
 
         <button
@@ -262,7 +293,15 @@ export default function App() {
 
           {["6A", "6B"].map((cls) => (
             <div key={cls} className="mb-10">
-              <h3 className="text-lg font-medium mb-4">Class {cls}</h3>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-medium">Class {cls}</h3>
+                <button
+                  onClick={() => downloadAllByClass(cls)}
+                  className="bg-indigo-500 text-white px-3 py-1 rounded-lg text-xs shadow"
+                >
+                  Download All
+                </button>
+              </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {photos
@@ -278,12 +317,24 @@ export default function App() {
                         <p className="text-[10px] text-gray-400 mb-2">
                           {p.ownerId}
                         </p>
-                        <button
-                          className="bg-red-500 text-white w-full py-1 rounded-lg text-xs"
-                          onClick={() => deletePhoto(p)}
-                        >
-                          Delete
-                        </button>
+                        <div className="flex gap-2">
+                          <a
+                            href={p.url}
+                            download
+                            target="_blank"
+                            rel="noreferrer"
+                            className="bg-blue-500 text-white w-full py-1 rounded-lg text-xs text-center"
+                          >
+                            Download
+                          </a>
+
+                          <button
+                            className="bg-red-500 text-white w-full py-1 rounded-lg text-xs"
+                            onClick={() => deletePhoto(p)}
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))}
