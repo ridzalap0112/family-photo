@@ -243,7 +243,7 @@ export default function App() {
         <div className="flex flex-col">
           <div className="flex gap-2 items-center">
             <img src={logoWeb} className="w-8" />
-            <h1 className="font-bold">FotoKita</h1>
+            <h1 className="font-bold">Family Photo</h1>
           </div>
           <p className="text-[11px] text-gray-500 ml-10">
             SD Nasional Plus BPK PENABUR Sentul City – Bogor
